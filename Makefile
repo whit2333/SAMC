@@ -29,11 +29,10 @@ BIN       = ./bin
 all: $(EXEC) 
 
 $(EXEC): $(OBJ) 
-	mkdir bin
-	mkdir obj
-	$(CC) $(OFLAGS) $(EXEC) $(OBJ) $(LIBS) 
+	mkdir -p bin
+	mkdir -p obj
+	$(CC) $(OFLAGS) $(BIN)/$(EXEC) $(OBJ) $(LIBS) 
 	mv $(OBJ) $(ODIR) 
-	mv $(EXEC) $(BIN)
 
 #-------------------------------------------------------------------------------
 # No special needs 
@@ -102,4 +101,4 @@ F1F209.o: $(SDIR)/F1F209.f
 .PHONY: clean
 
 clean: 
-	rm $(ODIR)/*.o $(EXEC)  
+	rm $(ODIR)/*.o $(BIN)/$(EXEC)  
