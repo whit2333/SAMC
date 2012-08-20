@@ -1,0 +1,51 @@
+=========================================== TODO ===========================================
+
+>> Classes to implement or work on  
+
+   - Generator
+     - Rotations from HCS to TCS  
+   
+   - LeRoseOptics
+     - Finish work on the method ReconstructTarget (still need to get z_react)  
+
+   - Transporter 
+     - Figure out how to apply various transport methods from Huan's code in a more 
+       intuitive manner
+     
+        - SAMCEvent::GetRef_Plane()
+          - Transports the event to the focal plane, using only multiple scattering
+          - Then transports the event back to the target in vacuum
+            - This gives the 'refined' target variables.  These are the variables
+              that are transported to the focal plane.   
+     
+        - SAMCEvent::Transport()  
+          - Called by GetRef_Plane()
+          - Effectively APPLIES multiple scattering for a given MATERIAL 
+          - Multiple scattering CALCULATION is applied here
+     
+        - Private data member: abstract Optics class? 
+
+>>  Implement 'main' program 
+
+    - Use of FileManager class
+
+    - Event loop 
+     - Use of Generator, SAMCEvent, LeRoseOptics, Material, Physics, 
+       CrossSection and AnalysisManager classes 
+     - Need to couple the use of Physics and SAMCEvent classes. How to apply results
+       of energy loss and multiple scattering to SAMCEvent? Also need to make use of 
+       boolean switches to turn on and off these processes.  
+
+>> Extra details:   
+
+   - AnalyzerOptics 
+     - Why is the LoadData() method so slow?  
+     - Is there a way to implement TransportToFocalPlane()? 
+
+   - FileManager
+     - Did we get everything?
+
+
+
+
+

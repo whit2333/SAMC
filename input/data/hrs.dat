@@ -1,0 +1,14 @@
+Name_integer            0 
+LHRS_length   		132.0      
+central_scat_angle      45.0
+Q1_ex_radius    	14.92      
+DipolXRadius  		40.00      
+DipoleYLength 		12.50      
+Q3_en_radius  		30.00      
+Q3_ex_radius  		30.00      
+VDC_x_res     		0.013      
+VDC_y_res     		0.013      
+VDC_th_res    		0.3        
+VDC_ph_res    		0.3        
+D_x           		-0.015     
+D_y           		0.101      
