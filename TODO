@@ -2,6 +2,9 @@
 
 >> Classes to implement or work on  
 
+   - eInclusiveCrossSection 
+     - Implement this (and F1F209) and remove CrossSection 
+
    - Generator
      - Rotations from HCS to TCS  
    
