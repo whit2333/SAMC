@@ -1,4 +1,4 @@
-# makefile for compiling and linking C++ and fortran 
+# makefile for compiling and linking SAMC  
 
 # compiler 
 FF        = gfortran
@@ -12,23 +12,45 @@ ROOTFLAGS = $(shell $(ROOTSYS)/bin/root-config --cflags)
 EXEC      = Test
 # programs
 CPROG     = MyTest.C 
-# objects 
-OBJ       = F1F209.o monte_trans_hrs.o Left_funcs.o Left_r-function.o Right_funcs.o Right_r-function.o \
-	FileManager.o CrossSection.o Material.o Kinematics.o Spectrometer.o Beam.o Optics.o MatrixElement.o \
-	AnalyzerOptics.o LeRoseOptics.o Physics.o AnalysisManager.o MyTest.o 
-# libraries 
-LIBS      = -f2c -lgfortran
-ROOTLIBS  = $(shell $(ROOTSYS)/bin/root-config --libs) 
-LIBS     += $(ROOTLIBS)
 # directories 
-SDIR      = ./src
-IDIR      = ./include
-ODIR      = ./obj
+SDIR      = src
+IDIR      = include
+ODIR      = obj
+BDIR      = bin
+# C++ objects
+CPPOBJ  := FileManager.o   \
+           CrossSection.o  \
+           Material.o      \
+           Kinematics.o    \
+           Spectrometer.o  \
+           Beam.o          \
+           Optics.o        \
+           MatrixElement.o \
+           AnalyzerOptics.o
+# C++ objects, needs ROOT libraries 
+RCPPOBJ := LeRoseOptics.o   \
+           Physics.o        \
+           AnalysisManager.o
+# Fortran objects 
+F77OBJ  := F1F209.o          \
+           monte_trans_hrs.o \
+           Left_funcs.o      \
+           Left_r-function.o \
+           Right_funcs.o     \
+           Right_r-function.o
+# all objects 
+OBJ     := $(CPPOBJ) $(RCPPOBJ) $(F77OBJ) MyTest.o 
+# libraries 
+ROOTLIBS  = $(shell $(ROOTSYS)/bin/root-config --libs)
+LIBS      = -lgfortran
+LIBS     += $(ROOTLIBS)
 
 all: $(EXEC) 
 
 $(EXEC): $(OBJ) 
-	$(CC) $(OFLAGS) $(EXEC) $(OBJ) $(LIBS) 
+	mkdir -p $(ODIR)
+	mkdir -p $(BDIR) 
+	$(CC) $(OFLAGS) $(BDIR)/$(EXEC) $(OBJ) $(LIBS) 
 	mv $(OBJ) $(ODIR) 
 
 #-------------------------------------------------------------------------------
