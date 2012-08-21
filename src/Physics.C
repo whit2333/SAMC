@@ -5,43 +5,40 @@ Physics::Physics(){
 }
 //______________________________________________________________________________
 Physics::~Physics(){
-	delete fCS;
+
 }
 //______________________________________________________________________________
 void Physics::Init(){
 	gRandom->SetSeed(0);    // FIXME: Do we need this?  It's set elsewhere too...
-	fCS = new CrossSection();
 }
 //______________________________________________________________________________
 double Physics::GetBornXS(double Z,double A,double Es,double Ep,double th){
 
-        fCS->SetZ(Z);
-        fCS->SetA(A);
-	double xs = fCS->GetBornXS(Es,Ep,th);
+        fInclXS->SetZ(Z);
+        fInclXS->SetA(A);
+        fInclXS->SetEs(Es);
+        fInclXS->SetEp(Ep); 
+	fInclXS->SetTh(th);
+	double xs = fInclXS->GetBornXS();
         return xs; 
 
 }
 //______________________________________________________________________________
-double Physics::IonizationEnergyLoss(double E0,Material *M){
+double Physics::GetIonizationEnergyLoss(double E0,Material *M){
 
 	// Particle Data Book Eq 27.9
 	double lA       = M->GetA();
 	double lZ       = M->GetZ();
 	double lrho     = M->GetRho();
 	double lT       = M->GetT();
-	double lK       = 0.307075*lA;                              // cm^2/mol
+	double lK       = 0.307075;                                 // cm^2/mol
 	double lbetasq  = 1-ELECTRON_MASS*ELECTRON_MASS/(E0*E0);
 	double lxi      = (lK/2)*(lZ/lA)*(lT/lbetasq);              // MeV  
 	double lhbarwsq = 28.816*28.816*lrho*(lZ/lA)*1e-12;         // MeV 
 	double j        = 0.200;
-	double Delta_p  = lxi*(log(2*ELECTRON_MASS*ELECTRON_MASS*lxi/lhbarwsq)+j);
+	double Delta_p  = lxi*(log(2*ELECTRON_MASS*lxi/lhbarwsq)+j);
 	double lw       = 4*lxi;
 	double ans      = 0;
-
-	// cout << "[Ion Loss]: Material: " << M->GetName() << endl;
-	// cout << "            Z:        " << M->GetZ()    << endl;
-	// cout << "            A:        " << M->GetA()    << endl;
-	// cout << "            L:        " << M->GetL()    << endl;
 
 	if( lZ!=0 && lA!=0 && lT!=0 && lrho!=0 ) ans = gRandom->Landau(Delta_p,lw);
 	if( ans>(E0-ELECTRON_MASS) )             ans = E0-ELECTRON_MASS;
@@ -52,7 +49,7 @@ double Physics::IonizationEnergyLoss(double E0,Material *M){
 
 }
 //______________________________________________________________________________
-double Physics::BremsstrahlungEnergyLoss(double E0,double bt){
+double Physics::GetBremsstrahlungEnergyLoss(double E0,double bt){
 
 	// Bremsstrahlung Energy Loss for external and internal(equivalent radiator)
 	// Xiaodong Jiang, PhD.thesis Equ 5.15
@@ -69,7 +66,7 @@ double Physics::BremsstrahlungEnergyLoss(double E0,double bt){
 
 }
 //_____________________________________________________________________________
-double Physics::MultipleScattering(double E,double TR){
+double Physics::GetMultipleScattering(double E,double TR){
 
 	//only for electron
 	double lPsq    = E*E-ELECTRON_MASS*ELECTRON_MASS;
@@ -91,7 +88,6 @@ double Physics::MultipleScattering(double E,double TR){
 	}else{
 		ans = 0;
 	}
-
 	return ans; 
 
 }

@@ -14,9 +14,8 @@
 #include <cmath> 
 #include "TRandom3.h"
 #include "Material.h"
-#include "CrossSection.h"
-
-#define ELECTRON_MASS 0.511 
+#include "eInclusiveCrossSection.h"
+#include "F1F209.h"
 
 using namespace std;
 
@@ -25,18 +24,19 @@ class Material;
 class Physics{
 
 	private:
-		CrossSection *fCS;
+		eInclusiveCrossSection *fInclXS;
 
+		void Init();
 	public:
 		Physics();
 		~Physics();
-
-		void Init();
-               
+              
+                void SetCrossSection(eInclusiveCrossSection *XS){*fInclXS = *XS;}
+ 
                 double GetBornXS(double,double,double,double,double); 
-		double IonizationEnergyLoss(double,Material *);
-		double BremsstrahlungEnergyLoss(double,double);
-		double MultipleScattering(double,double);
+		double GetIonizationEnergyLoss(double,Material *);
+		double GetBremsstrahlungEnergyLoss(double,double);
+		double GetMultipleScattering(double,double);
 
 };
 
