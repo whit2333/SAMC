@@ -63,7 +63,7 @@ C - F1F209 takes seven arguments: Z, A, Es, Q2, W2, F1Tot and F2Tot.
 C   F1Tot and F2Tot are the sum of the QE and inelastic 
 C   F1 and F2 terms, respectively. 
 
-      SUBROUTINE F1F209(Z,A,Es,TH,Q2,W2,F1Tot,F2Tot)  
+      SUBROUTINE f1f209(Z,A,Es,TH,Q2,W2,F1Tot,F2Tot)  
       implicit none
       real*8 nu,x
 C     Added by David Flay 

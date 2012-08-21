@@ -18,21 +18,22 @@ IDIR      = include
 ODIR      = obj
 BDIR      = bin
 # C++ objects
-CPPOBJ  := $(ODIR)/FileManager.o   \
-	   $(ODIR)/CrossSection.o  \
-	   $(ODIR)/Material.o      \
-	   $(ODIR)/Kinematics.o    \
-	   $(ODIR)/Spectrometer.o  \
-	   $(ODIR)/Beam.o          \
-           $(ODIR)/Optics.o        \
-           $(ODIR)/MatrixElement.o \
+CPPOBJ  := $(ODIR)/FileManager.o             \
+	   $(ODIR)/eInclusiveCrossSection.o  \
+	   $(ODIR)/F1F209.o                  \
+	   $(ODIR)/Material.o                \
+	   $(ODIR)/Kinematics.o              \
+	   $(ODIR)/Spectrometer.o            \
+	   $(ODIR)/Beam.o                    \
+           $(ODIR)/Optics.o                  \
+           $(ODIR)/MatrixElement.o           \
 	   $(ODIR)/AnalyzerOptics.o
 # C++ objects, needs ROOT libraries 
-RCPPOBJ := $(ODIR)/LeRoseOptics.o   \
-	   $(ODIR)/Physics.o        \
+RCPPOBJ := $(ODIR)/LeRoseOptics.o    \
+	   $(ODIR)/Physics.o         \
 	   $(ODIR)/AnalysisManager.o
 # Fortran objects 
-F77OBJ  := $(ODIR)/F1F209.o          \
+F77OBJ  := $(ODIR)/f1f209.o          \
 	   $(ODIR)/monte_trans_hrs.o \
 	   $(ODIR)/Left_funcs.o      \
 	   $(ODIR)/Left_r-function.o \
@@ -40,7 +41,6 @@ F77OBJ  := $(ODIR)/F1F209.o          \
            $(ODIR)/Right_r-function.o
 # all objects 
 OBJ     := $(CPPOBJ) $(RCPPOBJ) $(F77OBJ)   
-#OBJ     := $(CPPOBJ) $(RCPPOBJ) $(F77OBJ) MyTest.o  
 # libraries 
 ROOTLIBS  = $(shell $(ROOTSYS)/bin/root-config --libs) 
 LIBS      = -lgfortran
@@ -64,8 +64,8 @@ $(RCPPOBJ) : $(ODIR)/%.o : $(IDIR)/%.h
 $(F77OBJ) : $(ODIR)/%.o :
 	$(FF) $(OFLAGS) $@ $(CFLAGS) $(FFLAGS) $(@:$(ODIR)/%.o=$(SDIR)/%.f)
 
-MyTest.o: $(CPROG)
-	$(CC) $(CFLAGS) $(ROOTFLAGS) $(CPROG)
+# MyTest.o: $(CPROG)
+# 	$(CC) $(CFLAGS) $(ROOTFLAGS) $(CPROG)
 
 #--------------------------------------------------------------------------------
 

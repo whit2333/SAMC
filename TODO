@@ -2,6 +2,8 @@
 
 >> Classes to implement or work on  
 
+   - Update Makefile to shorter (and easier) version 
+
    - eInclusiveCrossSection 
      - Implement this (and F1F209) and remove CrossSection 
 
