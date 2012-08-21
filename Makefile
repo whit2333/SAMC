@@ -4,7 +4,7 @@
 FF        = gfortran
 CC        = g++
 # flags 
-CFLAGS    = -c 
+CFLAGS    = -c   
 OFLAGS    = -o 
 FFLAGS    = -fno-underscoring
 ROOTFLAGS = $(shell $(ROOTSYS)/bin/root-config --cflags) 
@@ -63,9 +63,6 @@ $(RCPPOBJ) : $(ODIR)/%.o : $(IDIR)/%.h
 
 $(F77OBJ) : $(ODIR)/%.o :
 	$(FF) $(OFLAGS) $@ $(CFLAGS) $(FFLAGS) $(@:$(ODIR)/%.o=$(SDIR)/%.f)
-
-# MyTest.o: $(CPROG)
-# 	$(CC) $(CFLAGS) $(ROOTFLAGS) $(CPROG)
 
 #--------------------------------------------------------------------------------
 
