@@ -11,6 +11,7 @@
 #include "./include/LeRoseOptics.h"
 #include "./include/AnalysisManager.h"
 #include "./include/AnalyzerOptics.h"
+#include "./include/Physics.h"
 
 int main(){
 
@@ -20,10 +21,10 @@ int main(){
 
         vector<Material> MaterialsBeforeMag,MaterialsAfterMag; 
 
+        Physics *P        = new Physics();  
         FileManager *FM   = new FileManager();
         Spectrometer *HRS = new Spectrometer();
         Beam *eBeam       = new Beam();
-
 
         FM->LoadData("HRS");
 	FM->SetData(HRS);
@@ -67,6 +68,7 @@ int main(){
 
         cout << "Optics: " << OptName << endl;
 
+        delete P; 
         delete FM;
 	delete HRS;
 	delete eBeam;
